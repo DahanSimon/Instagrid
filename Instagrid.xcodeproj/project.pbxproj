@@ -8,22 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		6B3A7FBD238E9016007461D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A7FBC238E9016007461D6 /* AppDelegate.swift */; };
-		6B3A7FBF238E9016007461D6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A7FBE238E9016007461D6 /* SceneDelegate.swift */; };
 		6B3A7FC1238E9016007461D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3A7FC0238E9016007461D6 /* ViewController.swift */; };
 		6B3A7FC4238E9016007461D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B3A7FC2238E9016007461D6 /* Main.storyboard */; };
 		6B3A7FC6238E9018007461D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B3A7FC5238E9018007461D6 /* Assets.xcassets */; };
 		6B3A7FC9238E9018007461D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B3A7FC7238E9018007461D6 /* LaunchScreen.storyboard */; };
+		6B3A7FD2238E94D2007461D6 /* Delm.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6B3A7FD0238E94D2007461D6 /* Delm.otf */; };
+		6B3A7FD3238E94D2007461D6 /* ThirstySoftRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6B3A7FD1238E94D2007461D6 /* ThirstySoftRegular.otf */; };
+		6BB8C9EA238EC92200692E9C /* Layout2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB8C9E9238EC92200692E9C /* Layout2View.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6B3A7FB9238E9016007461D6 /* Instagrid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagrid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B3A7FBC238E9016007461D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6B3A7FBE238E9016007461D6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		6B3A7FC0238E9016007461D6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6B3A7FC3238E9016007461D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6B3A7FC5238E9018007461D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6B3A7FC8238E9018007461D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6B3A7FCA238E9018007461D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6B3A7FD0238E94D2007461D6 /* Delm.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Delm.otf; sourceTree = "<group>"; };
+		6B3A7FD1238E94D2007461D6 /* ThirstySoftRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ThirstySoftRegular.otf; sourceTree = "<group>"; };
+		6BB8C9E9238EC92200692E9C /* Layout2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout2View.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +60,49 @@
 		6B3A7FBB238E9016007461D6 /* Instagrid */ = {
 			isa = PBXGroup;
 			children = (
-				6B3A7FBC238E9016007461D6 /* AppDelegate.swift */,
-				6B3A7FBE238E9016007461D6 /* SceneDelegate.swift */,
-				6B3A7FC0238E9016007461D6 /* ViewController.swift */,
+				6B3A7FD4238E956A007461D6 /* Model */,
+				6B3A7FD6238E9586007461D6 /* Controller */,
+				6B3A7FD5238E9576007461D6 /* View */,
+				6B3A7FD9238E95E6007461D6 /* Supporting Files */,
+			);
+			path = Instagrid;
+			sourceTree = "<group>";
+		};
+		6B3A7FD4238E956A007461D6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		6B3A7FD5238E9576007461D6 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				6B3A7FC2238E9016007461D6 /* Main.storyboard */,
+				6BB8C9E9238EC92200692E9C /* Layout2View.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6B3A7FD6238E9586007461D6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6B3A7FC0238E9016007461D6 /* ViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		6B3A7FD9238E95E6007461D6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6B3A7FBC238E9016007461D6 /* AppDelegate.swift */,
 				6B3A7FC5238E9018007461D6 /* Assets.xcassets */,
 				6B3A7FC7238E9018007461D6 /* LaunchScreen.storyboard */,
 				6B3A7FCA238E9018007461D6 /* Info.plist */,
+				6B3A7FD0238E94D2007461D6 /* Delm.otf */,
+				6B3A7FD1238E94D2007461D6 /* ThirstySoftRegular.otf */,
 			);
-			path = Instagrid;
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -126,6 +164,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B3A7FC9238E9018007461D6 /* LaunchScreen.storyboard in Resources */,
+				6B3A7FD2238E94D2007461D6 /* Delm.otf in Resources */,
+				6B3A7FD3238E94D2007461D6 /* ThirstySoftRegular.otf in Resources */,
 				6B3A7FC6238E9018007461D6 /* Assets.xcassets in Resources */,
 				6B3A7FC4238E9016007461D6 /* Main.storyboard in Resources */,
 			);
@@ -140,7 +180,7 @@
 			files = (
 				6B3A7FC1238E9016007461D6 /* ViewController.swift in Sources */,
 				6B3A7FBD238E9016007461D6 /* AppDelegate.swift in Sources */,
-				6B3A7FBF238E9016007461D6 /* SceneDelegate.swift in Sources */,
+				6BB8C9EA238EC92200692E9C /* Layout2View.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +326,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9S2GW6G25E;
-				INFOPLIST_FILE = Instagrid/Info.plist;
+				INFOPLIST_FILE = "Instagrid/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -294,7 +335,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.simonDahan.Instagrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -304,7 +345,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9S2GW6G25E;
-				INFOPLIST_FILE = Instagrid/Info.plist;
+				INFOPLIST_FILE = "Instagrid/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -312,7 +354,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.simonDahan.Instagrid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
