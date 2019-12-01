@@ -16,7 +16,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     @IBOutlet weak var bottomRightButton: UIButton!
     @IBOutlet weak var topBigButton: UIButton!
     @IBOutlet weak var bottomLeftButton: UIButton!
+    @IBOutlet weak var photoLayoutView: photoLayoutView!
     
+    override func viewDidLoad() {
+        topLeftButton.isHidden = true
+        topRightButton.isHidden = true
+        bottomBigButton.isHidden = true
+        
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+    }
     
     var selectedButton = 0
     var selectedLayout = 0
@@ -52,16 +61,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     
     @IBAction func layout1Button(_ sender: Any) {
-        selectedLayout = 1
-        changeLayout()
+        photoLayoutView.selectedLayout = 1
+        photoLayoutView.changeLayout()
     }
     @IBAction func layout2Button(_ sender: Any) {
-        selectedLayout = 2
-        changeLayout()
+        photoLayoutView.selectedLayout = 2
+        photoLayoutView.changeLayout()
     }
     @IBAction func layout3Button(_ sender: Any) {
-        selectedLayout = 3
-        changeLayout()
+        photoLayoutView.selectedLayout = 3
+        photoLayoutView.changeLayout()
     }
     
     
@@ -103,55 +112,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         self.present(newImage, animated: true){
             
         }
-    }
-    
-    func changeLayout() {
-        switch selectedLayout {
-        case 1:
-            topLeftButton.isHidden = true
-            topRightButton.isHidden = true
-            bottomBigButton.isHidden = true
-            
-            topBigButton.isHidden = false
-            bottomLeftButton.isHidden = false
-            bottomRightButton.isHidden = false
-            
-        case 2:
-            topLeftButton.isHidden = false
-            topRightButton.isHidden = false
-            bottomBigButton.isHidden = false
-            
-            topBigButton.isHidden = true
-            bottomLeftButton.isHidden = true
-            bottomRightButton.isHidden = true
-            
-        case 3:
-            topLeftButton.isHidden = false
-            topRightButton.isHidden = false
-            bottomBigButton.isHidden = true
-            
-            topBigButton.isHidden = true
-            bottomLeftButton.isHidden = false
-            bottomRightButton.isHidden = false
-            
-        default:
-            topLeftButton.isHidden = true
-            topRightButton.isHidden = true
-            bottomBigButton.isHidden = true
-            
-            topBigButton.isHidden = false
-            bottomLeftButton.isHidden = false
-            bottomRightButton.isHidden = false
-        }
-    }
-    
-    override func viewDidLoad() {
-        topLeftButton.isHidden = true
-        topRightButton.isHidden = true
-        bottomBigButton.isHidden = true
-        
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 }
 
