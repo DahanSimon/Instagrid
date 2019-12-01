@@ -17,25 +17,39 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     @IBOutlet weak var topBigButton: UIButton!
     @IBOutlet weak var bottomLeftButton: UIButton!
     
-    @IBOutlet weak var layout2View: UIView!
     
-    var selectedImage = 0
+    var selectedButton = 0
     var selectedLayout = 0
     
     @IBAction func bigBottomButton(_ sender: Any) {
-        selectedImage = 1
+        selectedButton = 1
         selectingImage()
     }
     @IBAction func topRightButton(_ sender: Any) {
-        selectedImage = 2
+        selectedButton = 2
         selectingImage()
     }
     
     @IBAction func topLeftButton(_ sender: Any) {
-        selectedImage = 3
+        selectedButton = 3
         selectingImage()
         
     }
+    @IBAction func bottomLeftButton(_ sender: Any) {
+        selectedButton = 4
+        selectingImage()
+    }
+    
+    @IBAction func topBigButton(_ sender: Any) {
+        selectedButton = 5
+        selectingImage()
+    }
+    @IBAction func bottomRightButton(_ sender: Any) {
+        selectedButton = 6
+        selectingImage()
+    }
+    
+    
     
     @IBAction func layout1Button(_ sender: Any) {
         selectedLayout = 1
@@ -50,21 +64,26 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         changeLayout()
     }
     
+    
+    
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-            switch selectedImage {
+            switch selectedButton {
             case 1:
-                bottomBigButton.isHidden = false
                 bottomBigButton.setImage(image, for: UIControl.State.normal)
             case 2:
-                topRightButton.isHidden = false
                 topRightButton.setImage(image, for: UIControl.State.normal)
             case 3:
-                topLeftButton.isHidden = false
                 topLeftButton.setImage(image, for: UIControl.State.normal)
+            case 4:
+                bottomLeftButton.setImage(image, for: UIControl.State.normal)
+            case 5:
+                topBigButton.setImage(image, for: UIControl.State.normal)
+            case 6:
+                bottomRightButton.setImage(image, for: UIControl.State.normal)
             default:
-                topLeftButton.isHidden = false
-                topLeftButton.setImage(image, for: UIControl.State.normal)
+                print("error")
             }
         }
         else {
@@ -72,6 +91,8 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         }
         self.dismiss(animated: true, completion: nil)
     }
+    
+    
     func selectingImage() {
         let newImage = UIImagePickerController()
         newImage.delegate = self

@@ -109,6 +109,9 @@
                                                     <constraint firstAttribute="width" secondItem="fod-LZ-eML" secondAttribute="height" multiplier="1:1" id="rhw-tc-Dc0"/>
                                                 </constraints>
                                                 <state key="normal" image="Plus"/>
+                                                <connections>
+                                                    <action selector="bottomLeftButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="X7K-Yr-ahx"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7IZ-Vp-05b" userLabel="topBigButton">
                                                 <rect key="frame" x="16" y="14" width="270" height="128"/>
@@ -122,6 +125,9 @@
                                                     <constraint firstAttribute="height" constant="128" id="xUA-Ca-TKF"/>
                                                 </constraints>
                                                 <state key="normal" image="Plus"/>
+                                                <connections>
+                                                    <action selector="topBigButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="naq-4V-rId"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7qY-ZK-7qr" userLabel="bottomRightButton">
                                                 <rect key="frame" x="157" y="157" width="128" height="128"/>
@@ -135,6 +141,9 @@
                                                     <constraint firstAttribute="width" constant="128" id="vZY-rq-Y0K"/>
                                                 </constraints>
                                                 <state key="normal" image="Plus"/>
+                                                <connections>
+                                                    <action selector="bottomRightButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Yc0-vP-Pdf"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.083348117769999994" green="0.39431697129999999" blue="0.59610301259999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -235,7 +244,6 @@
                         <outlet property="bottomBigButton" destination="g93-4z-9Hl" id="XcQ-uY-h8e"/>
                         <outlet property="bottomLeftButton" destination="fod-LZ-eML" id="HxL-BV-efR"/>
                         <outlet property="bottomRightButton" destination="7qY-ZK-7qr" id="uv4-S0-KQY"/>
-                        <outlet property="layout2View" destination="97Q-Sv-Zhi" id="NIZ-ZA-EzJ"/>
                         <outlet property="topBigButton" destination="7IZ-Vp-05b" id="HuV-Vg-dnJ"/>
                         <outlet property="topLeftButton" destination="czo-pf-GGS" id="KHV-NL-lKP"/>
                         <outlet property="topRightButton" destination="jKc-j5-4bM" id="Jr2-my-ZwD"/>
