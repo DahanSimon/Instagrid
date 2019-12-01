@@ -9,14 +9,19 @@
 import UIKit
 
 class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    @IBOutlet weak var topLeftImage: UIImageView!
-    @IBOutlet weak var bigBottomImage: UIImageView!
-    @IBOutlet weak var topRightImage: UIImageView!
+    @IBOutlet weak var bottomBigButton: UIButton!
+    @IBOutlet weak var topRightButton: UIButton!
+    @IBOutlet weak var topLeftButton: UIButton!
+    
+    @IBOutlet weak var bottomRightButton: UIButton!
+    @IBOutlet weak var topBigButton: UIButton!
+    @IBOutlet weak var bottomLeftButton: UIButton!
     
     @IBOutlet weak var layout2View: UIView!
     
     var selectedImage = 0
-
+    var selectedLayout = 0
+    
     @IBAction func bigBottomButton(_ sender: Any) {
         selectedImage = 1
         selectingImage()
@@ -27,27 +32,39 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
     
     @IBAction func topLeftButton(_ sender: Any) {
-       selectedImage = 3
+        selectedImage = 3
         selectingImage()
         
     }
     
+    @IBAction func layout1Button(_ sender: Any) {
+        selectedLayout = 1
+        changeLayout()
+    }
+    @IBAction func layout2Button(_ sender: Any) {
+        selectedLayout = 2
+        changeLayout()
+    }
+    @IBAction func layout3Button(_ sender: Any) {
+        selectedLayout = 3
+        changeLayout()
+    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             switch selectedImage {
-                case 1:
-                    bigBottomImage.isHidden = false
-                    bigBottomImage.image = image
-                case 2:
-                    topRightImage.isHidden = false
-                    topRightImage.image = image
-                case 3:
-                    topLeftImage.isHidden = false
-                    topLeftImage.image = image
-                default:
-                    topLeftImage.isHidden = false
-                    topLeftImage.image = image
+            case 1:
+                bottomBigButton.isHidden = false
+                bottomBigButton.setImage(image, for: UIControl.State.normal)
+            case 2:
+                topRightButton.isHidden = false
+                topRightButton.setImage(image, for: UIControl.State.normal)
+            case 3:
+                topLeftButton.isHidden = false
+                topLeftButton.setImage(image, for: UIControl.State.normal)
+            default:
+                topLeftButton.isHidden = false
+                topLeftButton.setImage(image, for: UIControl.State.normal)
             }
         }
         else {
@@ -67,7 +84,51 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         }
     }
     
+    func changeLayout() {
+        switch selectedLayout {
+        case 1:
+            topLeftButton.isHidden = true
+            topRightButton.isHidden = true
+            bottomBigButton.isHidden = true
+            
+            topBigButton.isHidden = false
+            bottomLeftButton.isHidden = false
+            bottomRightButton.isHidden = false
+            
+        case 2:
+            topLeftButton.isHidden = false
+            topRightButton.isHidden = false
+            bottomBigButton.isHidden = false
+            
+            topBigButton.isHidden = true
+            bottomLeftButton.isHidden = true
+            bottomRightButton.isHidden = true
+            
+        case 3:
+            topLeftButton.isHidden = false
+            topRightButton.isHidden = false
+            bottomBigButton.isHidden = true
+            
+            topBigButton.isHidden = true
+            bottomLeftButton.isHidden = false
+            bottomRightButton.isHidden = false
+            
+        default:
+            topLeftButton.isHidden = true
+            topRightButton.isHidden = true
+            bottomBigButton.isHidden = true
+            
+            topBigButton.isHidden = false
+            bottomLeftButton.isHidden = false
+            bottomRightButton.isHidden = false
+        }
+    }
+    
     override func viewDidLoad() {
+        topLeftButton.isHidden = true
+        topRightButton.isHidden = true
+        bottomBigButton.isHidden = true
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
