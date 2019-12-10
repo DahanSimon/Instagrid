@@ -9,96 +9,48 @@
 import UIKit
 
 class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    @IBOutlet weak var bottomBigButton: UIButton!
-    @IBOutlet weak var topRightButton: UIButton!
-    @IBOutlet weak var topLeftButton: UIButton!
     
-    @IBOutlet weak var bottomRightButton: UIButton!
-    @IBOutlet weak var topBigButton: UIButton!
-    @IBOutlet weak var bottomLeftButton: UIButton!
-    @IBOutlet weak var photoLayoutView: photoLayoutView!
+    
+    
+    
+    @IBOutlet var mainView: UIView!
     
     override func viewDidLoad() {
-        topLeftButton.isHidden = true
-        topRightButton.isHidden = true
-        bottomBigButton.isHidden = true
+        photoLayoutView.topLeftButton.isHidden = true
+        photoLayoutView.topRightButton.isHidden = true
+        photoLayoutView.bottomBigButton.isHidden = true
         
+        selectedIcon[0].isHidden = true
+        selectedIcon[1].isHidden = true
+        selectedIcon[2].isHidden = false
+        
+        
+        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
+        swipeUpGesture.direction = UISwipeGestureRecognizer.Direction.up
+        
+    mainView.addGestureRecognizer(swipeUpGesture)
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
-    var selectedButton = 0
-    var selectedLayout = 0
+    @objc func handleSwipe() {
+        viewToImage()
+    }
+    @IBOutlet var selectedIcon: [UIImageView]!
+    @IBOutlet weak var photoLayoutView: photoLayoutView!
+    var selectedButton: UIButton?
     
-    @IBAction func bigBottomButton(_ sender: Any) {
-        selectedButton = 1
-        selectingImage()
-    }
-    @IBAction func topRightButton(_ sender: Any) {
-        selectedButton = 2
-        selectingImage()
-    }
-    
-    @IBAction func topLeftButton(_ sender: Any) {
-        selectedButton = 3
-        selectingImage()
-        
-    }
-    @IBAction func bottomLeftButton(_ sender: Any) {
-        selectedButton = 4
-        selectingImage()
-    }
-    
-    @IBAction func topBigButton(_ sender: Any) {
-        selectedButton = 5
-        selectingImage()
-    }
-    @IBAction func bottomRightButton(_ sender: Any) {
-        selectedButton = 6
+    @IBAction func buttonTap(_ sender: UIButton) {
+        selectedButton = sender
         selectingImage()
     }
     
     
-    
-    @IBAction func layout1Button(_ sender: Any) {
-        photoLayoutView.selectedLayout = 1
+    @IBAction func layoutChange(_ sender: UIButton) {
+        photoLayoutView.selectedLayout = sender.tag
         photoLayoutView.changeLayout()
-    }
-    @IBAction func layout2Button(_ sender: Any) {
-        photoLayoutView.selectedLayout = 2
-        photoLayoutView.changeLayout()
-    }
-    @IBAction func layout3Button(_ sender: Any) {
-        photoLayoutView.selectedLayout = 3
-        photoLayoutView.changeLayout()
-    }
-    
-    
-    
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-            switch selectedButton {
-            case 1:
-                bottomBigButton.setImage(image, for: UIControl.State.normal)
-            case 2:
-                topRightButton.setImage(image, for: UIControl.State.normal)
-            case 3:
-                topLeftButton.setImage(image, for: UIControl.State.normal)
-            case 4:
-                bottomLeftButton.setImage(image, for: UIControl.State.normal)
-            case 5:
-                topBigButton.setImage(image, for: UIControl.State.normal)
-            case 6:
-                bottomRightButton.setImage(image, for: UIControl.State.normal)
-            default:
-                print("error")
-            }
-        }
-        else {
-            
-        }
-        self.dismiss(animated: true, completion: nil)
+        setSelectedIcon(selectedButton: sender)
+        photoLayoutView.reinitialiseButtonImage()
     }
     
     
@@ -109,9 +61,50 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         newImage.sourceType = UIImagePickerController.SourceType.photoLibrary
         newImage.allowsEditing = false
         
-        self.present(newImage, animated: true){
+        self.present(newImage, animated: true, completion: nil)
+    }
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+            selectedButton?.setImage(image, for: UIControl.State.normal)
+            selectedButton?.imageView?.contentMode = .scaleAspectFill
+        }
+        else {
             
         }
+        self.dismiss(animated: true, completion: nil)
     }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func setSelectedIcon(selectedButton: UIButton) {
+        switch selectedButton.tag {
+        case 1:
+            selectedIcon[0].isHidden = true
+            selectedIcon[1].isHidden = true
+            selectedIcon[2].isHidden = false
+        case 2:
+            selectedIcon[0].isHidden = false
+            selectedIcon[1].isHidden = true
+            selectedIcon[2].isHidden = true
+        default:
+            selectedIcon[0].isHidden = true
+            selectedIcon[1].isHidden = false
+            selectedIcon[2].isHidden = true
+        }
+    }
+    
+    func viewToImage(){
+        let renderer = UIGraphicsImageRenderer(size: photoLayoutView.bounds.size)
+        let image = renderer.image { ctx in
+            photoLayoutView.drawHierarchy(in: photoLayoutView.bounds, afterScreenUpdates: true)
+        }
+        let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
+        present(vc, animated: true)
+    }
+    
 }
 

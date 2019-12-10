@@ -18,6 +18,7 @@ class photoLayoutView: UIView {
     @IBOutlet weak var topBigButton: UIButton!
     @IBOutlet weak var bottomLeftButton: UIButton!
     
+    @IBOutlet var selectedButton: [UIButton]!
     var selectedLayout = 0
     
     func changeLayout() {
@@ -30,6 +31,7 @@ class photoLayoutView: UIView {
             topBigButton.isHidden = false
             bottomLeftButton.isHidden = false
             bottomRightButton.isHidden = false
+            
             
         case 2:
             topLeftButton.isHidden = false
@@ -59,6 +61,9 @@ class photoLayoutView: UIView {
             bottomRightButton.isHidden = false
         }
     }
-    
-    
+    func reinitialiseButtonImage() {
+        for button in self.selectedButton {
+            button.setImage(#imageLiteral(resourceName: "Plus"), for: UIControl.State.normal)
+        }
+    }
 }
