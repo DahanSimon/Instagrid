@@ -9,12 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    
-    
-    
-    
+
     @IBOutlet var mainView: UIView!
-    
+    let grid = Grid()
     override func viewDidLoad() {
         photoLayoutView.topLeftButton.isHidden = true
         photoLayoutView.topRightButton.isHidden = true
@@ -23,7 +20,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         selectedIcon[0].isHidden = true
         selectedIcon[1].isHidden = true
         selectedIcon[2].isHidden = false
-        
         
         let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
         swipeUpGesture.direction = UISwipeGestureRecognizer.Direction.up
@@ -34,7 +30,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
     
     @objc func handleSwipe() {
-        viewToImage()
+        share()
     }
     @IBOutlet var selectedIcon: [UIImageView]!
     @IBOutlet weak var photoLayoutView: photoLayoutView!
@@ -47,21 +43,22 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     
     @IBAction func layoutChange(_ sender: UIButton) {
-        photoLayoutView.selectedLayout = sender.tag
-        photoLayoutView.changeLayout()
-        setSelectedIcon(selectedButton: sender)
-        photoLayoutView.reinitialiseButtonImage()
+        if let newLayout = Layout.init(rawValue: sender.tag) {
+            grid.layout = newLayout
+            photoLayoutView.updateFromGrid(grid: grid)
+            setSelectedIcon(selectedButton: sender)
+        }
     }
     
     
     func selectingImage() {
-        let newImage = UIImagePickerController()
-        newImage.delegate = self
+        let selectImageController = UIImagePickerController()
+        selectImageController.delegate = self
         
-        newImage.sourceType = UIImagePickerController.SourceType.photoLibrary
-        newImage.allowsEditing = false
+        selectImageController.sourceType = UIImagePickerController.SourceType.photoLibrary
+        selectImageController.allowsEditing = false
         
-        self.present(newImage, animated: true, completion: nil)
+        self.present(selectImageController, animated: true, completion: nil)
     }
     
     
@@ -69,9 +66,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             selectedButton?.setImage(image, for: UIControl.State.normal)
             selectedButton?.imageView?.contentMode = .scaleAspectFill
+            if let button = selectedButton {
+                grid.images[button.tag] = image
+            }
+            
         }
         else {
-            
+//            if let button = self.view.viewWithTag(1) as? UIButton {
+//
+//            }
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -97,11 +100,16 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         }
     }
     
-    func viewToImage(){
+    func viewToImage() -> UIImage{
         let renderer = UIGraphicsImageRenderer(size: photoLayoutView.bounds.size)
         let image = renderer.image { ctx in
             photoLayoutView.drawHierarchy(in: photoLayoutView.bounds, afterScreenUpdates: true)
         }
+        return image
+    }
+    
+    func share() {
+        let image = viewToImage()
         let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
         present(vc, animated: true)
     }

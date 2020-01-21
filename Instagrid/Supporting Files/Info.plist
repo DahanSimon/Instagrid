@@ -26,6 +26,8 @@
 	<string>Main</string>
 	<key>UIImagePickerControllerOriginalImage</key>
 	<string>test</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app tries to access your photo library</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
