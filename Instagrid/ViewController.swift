@@ -17,9 +17,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         photoLayoutView.topRightButton.isHidden = true
         photoLayoutView.bottomBigButton.isHidden = true
         
-        selectedIcon[0].isHidden = true
-        selectedIcon[1].isHidden = true
-        selectedIcon[2].isHidden = false
         
         let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
         swipeUpGesture.direction = UISwipeGestureRecognizer.Direction.up
@@ -32,7 +29,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     @objc func handleSwipe() {
         share()
     }
-    @IBOutlet var selectedIcon: [UIImageView]!
     @IBOutlet weak var photoLayoutView: photoLayoutView!
     var selectedButton: UIButton?
     
@@ -44,13 +40,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     @IBAction func layoutChange(_ sender: UIButton) {
         if let newLayout = Layout.init(rawValue: sender.tag) {
+            setSelectedIcon(senderTag: sender.tag)
             grid.layout = newLayout
             photoLayoutView.updateFromGrid(grid: grid)
-            setSelectedIcon(selectedButton: sender)
         }
     }
     
-    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        
+    }
     func selectingImage() {
         let selectImageController = UIImagePickerController()
         selectImageController.delegate = self
@@ -69,7 +67,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             if let button = selectedButton {
                 grid.images[button.tag] = image
             }
-            
         }
         else {
 //            if let button = self.view.viewWithTag(1) as? UIButton {
@@ -83,20 +80,19 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         self.dismiss(animated: true, completion: nil)
     }
     
-    func setSelectedIcon(selectedButton: UIButton) {
-        switch selectedButton.tag {
-        case 1:
-            selectedIcon[0].isHidden = true
-            selectedIcon[1].isHidden = true
-            selectedIcon[2].isHidden = false
-        case 2:
-            selectedIcon[0].isHidden = false
-            selectedIcon[1].isHidden = true
-            selectedIcon[2].isHidden = true
-        default:
-            selectedIcon[0].isHidden = true
-            selectedIcon[1].isHidden = false
-            selectedIcon[2].isHidden = true
+    func setSelectedIcon(senderTag: Int) {
+        if let selectedButton = self.view.viewWithTag(senderTag) as? UIButton {
+            for tag in 1...3 {
+                if tag == senderTag {
+                    selectedButton.setImage(#imageLiteral(resourceName: "Selected.png"), for: UIControl.State.normal)
+                }
+                else {
+                    if let button = self.view.viewWithTag(tag) as? UIButton {
+                        button.setImage(button.backgroundImage(for: UIControl.State.normal), for: UIControl.State.normal)
+                    }
+                }
+            }
+            
         }
     }
     
