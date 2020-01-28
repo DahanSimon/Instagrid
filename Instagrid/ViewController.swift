@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
+    @IBOutlet weak var shareLabel: UILabel!
     @IBOutlet var mainView: UIView!
     let grid = Grid()
     override func viewDidLoad() {
@@ -18,16 +19,26 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         photoLayoutView.bottomBigButton.isHidden = true
         
         
-        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
+        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeUp))
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft))
         swipeUpGesture.direction = UISwipeGestureRecognizer.Direction.up
-        
-    mainView.addGestureRecognizer(swipeUpGesture)
+        swipeLeftGesture.direction = UISwipeGestureRecognizer.Direction.left
+        mainView.addGestureRecognizer(swipeUpGesture)
+        mainView.addGestureRecognizer(swipeLeftGesture)
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
-    @objc func handleSwipe() {
-        share()
+    @objc func handleSwipeUp() {
+        if UIDevice.current.orientation.isPortrait {
+            share()
+        }
+        
+    }
+    @objc func handleSwipeLeft() {
+        if UIDevice.current.orientation.isLandscape {
+            share()
+        }
     }
     @IBOutlet weak var photoLayoutView: photoLayoutView!
     var selectedButton: UIButton?
@@ -47,6 +58,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if let previousOrientation = previousTraitCollection {
+            if previousOrientation.verticalSizeClass.rawValue == 2 {
+                shareLabel.text = "Swipe left to share"
+            }
+            else {
+                shareLabel.text = "Swipe up to share"
+            }
+        }
+        
         
     }
     func selectingImage() {
