@@ -8,7 +8,7 @@
 
 import UIKit
 
-class photoLayoutView: UIView {
+class PhotoLayoutView: UIView {
     
     
     @IBOutlet weak var bottomBigButton: UIButton!

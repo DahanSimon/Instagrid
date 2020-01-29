@@ -9,15 +9,20 @@
 import UIKit
 
 class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
+    
     @IBOutlet weak var shareLabel: UILabel!
     @IBOutlet var mainView: UIView!
     let grid = Grid()
+    var selectedButton: UIButton?
+    @IBOutlet weak var photoLayoutView: PhotoLayoutView!
+    
     override func viewDidLoad() {
+        super.viewDidLoad()
         photoLayoutView.topLeftButton.isHidden = true
         photoLayoutView.topRightButton.isHidden = true
         photoLayoutView.bottomBigButton.isHidden = true
         
+        shareLabelVariation()
         
         let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeUp))
         let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeLeft))
@@ -25,8 +30,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         swipeLeftGesture.direction = UISwipeGestureRecognizer.Direction.left
         mainView.addGestureRecognizer(swipeUpGesture)
         mainView.addGestureRecognizer(swipeLeftGesture)
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     
     @objc func handleSwipeUp() {
@@ -55,9 +58,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         return image
     }
     
-    @IBOutlet weak var photoLayoutView: photoLayoutView!
-    
-    var selectedButton: UIButton?
     @IBAction func buttonTap(_ sender: UIButton) {
         selectedButton = sender
         selectingImage()
@@ -98,6 +98,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     func setSelectedIcon(senderTag: Int) {
         if let selectedButton = self.view.viewWithTag(senderTag) as? UIButton {
+            //            commentaire tag
             for tag in 1...3 {
                 if tag == senderTag {
                     selectedButton.setImage( #imageLiteral(resourceName: "Selected"), for: UIControl.State.normal)
@@ -108,18 +109,19 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
                     }
                 }
             }
-            
         }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if let previousOrientation = previousTraitCollection {
-            if previousOrientation.verticalSizeClass.rawValue == 2 {
-                shareLabel.text = "Swipe left to share"
-            }
-            else {
-                shareLabel.text = "Swipe up to share"
-            }
+        shareLabelVariation()
+    }
+    
+    func shareLabelVariation(){
+        if traitCollection.verticalSizeClass == .compact {
+            shareLabel.text = "Swipe left to share"
+        }
+        else {
+            shareLabel.text = "Swipe up to share"
         }
     }
 }
