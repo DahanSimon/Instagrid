@@ -57,6 +57,7 @@ class PhotoLayoutView: UIView {
             bottomRightButton.isHidden = false
         }
     }
+    /// Set images to the right buttons
     func reinitialiseButtonImage(images: [Int: UIImage]) {
         for button in self.buttonsArray {
             if let image = images[button.tag] {
@@ -65,7 +66,6 @@ class PhotoLayoutView: UIView {
             else {
                 button.setImage( #imageLiteral(resourceName: "Plus.png"), for: UIControl.State.normal)
             }
-            
         }
     }
 }

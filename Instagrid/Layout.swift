@@ -9,5 +9,6 @@
 import UIKit
 
 enum Layout: Int {
+//    3 types of layout (there raw values are between 1 and 3 because the 3 button have tags between 1 and 3
     case layout1 = 1, layout2, layout3
 }

@@ -18,10 +18,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        photoLayoutView.topLeftButton.isHidden = true
-        photoLayoutView.topRightButton.isHidden = true
-        photoLayoutView.bottomBigButton.isHidden = true
         
+//        Interface initiation
+        photoLayoutView.updateFromGrid(grid: grid)
         shareLabelVariation()
         
         let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeUp))
@@ -57,7 +56,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         }
         return image
     }
-    
+///    User wants to add or change the image
     @IBAction func buttonTap(_ sender: UIButton) {
         selectedButton = sender
         selectingImage()
@@ -98,7 +97,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     func setSelectedIcon(senderTag: Int) {
         if let selectedButton = self.view.viewWithTag(senderTag) as? UIButton {
-            //            commentaire tag
+            //  The layout selecting button have tags from 1 to 3
             for tag in 1...3 {
                 if tag == senderTag {
                     selectedButton.setImage( #imageLiteral(resourceName: "Selected"), for: UIControl.State.normal)
@@ -115,7 +114,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         shareLabelVariation()
     }
-    
+    /// Change the text when the orientation change
     func shareLabelVariation(){
         if traitCollection.verticalSizeClass == .compact {
             shareLabel.text = "Swipe left to share"
