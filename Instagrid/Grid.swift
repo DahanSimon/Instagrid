@@ -11,5 +11,11 @@ import UIKit
 class Grid {
     var layout: Layout = .layout1
 //    This dictionnary stocks images with the tag of the view they are in as key
-    var images: [Int: UIImage] = [:]
+    var images: [Int: UIImage] = [:] {
+        didSet {
+            let name = Notification.Name("newImageAdded")
+            let notification = Notification(name: name)
+            NotificationCenter.default.post(notification)
+        }
+    }
 }

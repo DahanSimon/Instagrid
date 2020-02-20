@@ -30,8 +30,13 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         swipeLeftGesture.direction = UISwipeGestureRecognizer.Direction.left
         mainView.addGestureRecognizer(swipeUpGesture)
         mainView.addGestureRecognizer(swipeLeftGesture)
+        
+        let name = Notification.Name("newImageAdded")
+        NotificationCenter.default.addObserver(self, selector: #selector(updateView), name: name, object: nil)
     }
-    
+    @objc func updateView() {
+        photoLayoutView.updateFromGrid(grid: grid)
+    }
     @objc func handleSwipeUp() {
         if UIDevice.current.orientation.isPortrait {
             let translationTransformUp = CGAffineTransform(translationX: 0, y: -screenSize.height)
@@ -75,6 +80,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         selectingImage()
     }
     
+    
     func selectingImage() {
         let selectImageController = UIImagePickerController()
         selectImageController.delegate = self
@@ -90,7 +96,6 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             if let button = selectedButton {
                 grid.images[button.tag] = image
             }
-            photoLayoutView.updateFromGrid(grid: grid)
         }
         self.dismiss(animated: true, completion: nil)
     }
