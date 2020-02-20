@@ -14,12 +14,13 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     @IBOutlet var mainView: UIView!
     let grid = Grid()
     var selectedButton: UIButton?
+    var screenSize = UIScreen.main.bounds
     @IBOutlet weak var photoLayoutView: PhotoLayoutView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        Interface initiation
+        //        Interface initiation
         photoLayoutView.updateFromGrid(grid: grid)
         shareLabelVariation()
         
@@ -33,19 +34,31 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     @objc func handleSwipeUp() {
         if UIDevice.current.orientation.isPortrait {
+            let translationTransformUp = CGAffineTransform(translationX: 0, y: -screenSize.height)
+            UIView.animate(withDuration: 0.3, animations: {
+                self.photoLayoutView.transform = translationTransformUp
+            })
             share()
         }
     }
     
     @objc func handleSwipeLeft() {
         if UIDevice.current.orientation.isLandscape {
+            let translationTransformLeft = CGAffineTransform(translationX: -screenSize.width, y: 0)
+            UIView.animate(withDuration: 0.3, animations: {
+                self.photoLayoutView.transform = translationTransformLeft
+            })
             share()
         }
     }
-    
     func share() {
         let image = viewToImage()
         let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
+        vc.completionWithItemsHandler = { activity, success, item, error in
+            UIView.animate(withDuration: 0.2, animations: {
+                self.photoLayoutView.transform = .identity
+            })
+        }
         present(vc, animated: true)
     }
     
@@ -56,7 +69,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         }
         return image
     }
-///    User wants to add or change the image
+    ///    User wants to add or change the image
     @IBAction func buttonTap(_ sender: UIButton) {
         selectedButton = sender
         selectingImage()
@@ -74,11 +87,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-            selectedButton?.setImage(image, for: UIControl.State.normal)
-            selectedButton?.imageView?.contentMode = .scaleAspectFill
             if let button = selectedButton {
                 grid.images[button.tag] = image
             }
+            photoLayoutView.updateFromGrid(grid: grid)
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -112,6 +124,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        screenSize = UIScreen.main.bounds
         shareLabelVariation()
     }
     /// Change the text when the orientation change
