@@ -62,6 +62,7 @@ class PhotoLayoutView: UIView {
         for button in self.buttonsArray {
             if let image = images[button.tag] {
                 button.setImage(image, for: UIControl.State.normal)
+                button.imageView?.contentMode = .scaleToFill
             }
             else {
                 button.setImage( #imageLiteral(resourceName: "Plus.png"), for: UIControl.State.normal)
